@@ -1,0 +1,14 @@
+<?php
+/**
+* cs-visually-hidden class added
+*/
+
+$target = $block->getTarget();
+$label = $block->getLabel();
+?>
+<a class="action skip cs-visually-hidden <?= $block->escapeHtmlAttr($target) ?>"
+   href="#<?= $block->escapeHtmlAttr($target) ?>">
+    <span>
+        <?= $block->escapeHtml($label) ?>
+    </span>
+</a>

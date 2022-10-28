@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="review_product_form_component"/>
+    <body>
+        <referenceBlock name="product.info.details">
+            <referenceBlock name="reviews.tab">
+                <arguments>
+                    <argument name="sort_order" xsi:type="string">50</argument>
+                    <argument name="is_collapsible" xsi:type="boolean">true</argument>
+                    <argument name="collapsible_widget_options" xsi:type="array">
+                        <item name="mediaQueryScope" xsi:type="string">(max-width: 767px)</item>
+                    </argument>
+                </arguments>
+                <block class="Magento\Catalog\Block\Product\View" name="reviews.summary" as="reviews_summary" template="Magento_Review::summary.phtml">
+                    <arguments>
+                        <argument xsi:type="boolean" name="show_numerical_score">true</argument>
+                        <!-- Show "Base on X reviews" note -->
+                        <argument xsi:type="boolean" name="show_all_reviews_count">false</argument>
+                        <!-- Show "1/2/3/4/5 stars" label on the left side of each bar. When set to false only number will be shown -->
+                        <argument xsi:type="boolean" name="show_full_stars_label">true</argument>
+                    </arguments>
+                    <block class="MageSuite\ThemeHelpers\Block\Icon" name="reviews.summary.button.icon">
+                        <arguments>
+                            <argument name="icon_url" xsi:type="string">images/icons/button/icon-default-primary.svg</argument>
+                            <argument name="css_class" xsi:type="string">cs-reviews-summary__button-icon</argument>
+                            <argument name="alt_text" xsi:type="string" translate="true">submit</argument>
+                            <argument name="inlined" xsi:type="boolean">true</argument>
+                            <argument name="lazy_loaded" xsi:type="boolean">true</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </referenceBlock>
+
+
+            <referenceBlock name="product.review.form">
+                <block class="MageSuite\ThemeHelpers\Block\Icon" name="product.review.form.button.icon">
+                    <arguments>
+                        <argument name="icon_url" xsi:type="string">images/icons/button/icon-default-primary.svg</argument>
+                        <argument name="css_class" xsi:type="string">cs-form__button-icon</argument>
+                        <argument name="alt_text" xsi:type="string" translate="true">submit</argument>
+                        <argument name="inlined" xsi:type="boolean">true</argument>
+                        <argument name="lazy_loaded" xsi:type="boolean">true</argument>
+                    </arguments>
+                </block>
+            </referenceBlock>
+        </referenceBlock>
+    </body>
+</page>

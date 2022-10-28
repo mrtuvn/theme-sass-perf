@@ -1,0 +1,54 @@
+<?php
+/**
+* Template overridden to add tile component for wishlist items
+*/
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Items $block */
+$columns = $block->getColumns();
+
+$viewMode = $block->getViewMode();
+$viewModeClass = $block->getGridComponentClass();
+$viewModeAdditionalClass = $block->hasAdditionalGridComponentClass() ? ' ' .$block->getAdditionalGridComponentClass() : '';
+$viewModeListClass = $block->getGridComponentListClass();
+$viewModeListItemClass = $block->getGridComponentListItemClass();
+
+$pageLayout = $this->helper(\MageSuite\ThemeHelpers\Helper\PageLayout::class)->getPageLayout();
+if ($pageLayout != '1column') {
+    $viewModeClass .= ' ' . $viewModeClass . '--with-sidebar';
+}
+$wishlistGridLayoutSettings = json_encode($block->getVar('grid_layout/wishlist/js') ?: '{}');
+?>
+
+<?php if($viewMode == 'grid'): ?>
+    <link rel="stylesheet" href="<?= $block->getViewFileUrl('css/grid-layout.css'); ?>"/>
+    <script defer-ignore></script>
+<?php endif; ?>
+
+<div class="<?= $viewModeClass . $viewModeAdditionalClass ?>">
+    <?php $iterator = 1; ?>
+    <?php if (count($block->getItems())) : ?>
+        <ol class="<?= $viewModeListClass ?>">
+            <?php foreach ($block->getItems() as $item): ?>
+                <li class="<?= $viewModeListItemClass ?>" id="item_<?= $item->getId() ?>">
+                    <?= $this->getLayout()
+                        ->createBlock(\MageSuite\ProductTile\Block\Tile::class)
+                        ->setIterator($iterator)
+                        ->setAreas(['wishlist'])
+                        ->setSection('wishlist')
+                        ->setViewMode($viewMode)
+                        ->setWishlistItem($item)
+                        ->render($item->getProduct());
+                    ?>
+                </li>
+                <?php $iterator++ ?>
+            <?php endforeach; ?>
+        </ol>
+    <?php else : ?>
+        <div class="cs-dashboard__wishlist-line">
+            <span><?= $block->escapeHtml(__('This Wish List has no Items')) ?></span>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php foreach ($columns as $column) : ?>
+    <?= $column->getAdditionalHtml() ?>
+<?php endforeach; ?>

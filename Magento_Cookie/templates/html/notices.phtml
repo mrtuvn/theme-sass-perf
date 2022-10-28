@@ -1,0 +1,63 @@
+<?php 
+/** 
+* Template originally overridden to implement BEM classes
+* - modification 14.08.2018 =>
+*      - Removed Magento's copyright notice;
+*      - Implementation of optional CMS Block for text => fallback left when CMS block is not available;
+*      - Cookie icon is now defined in XML;
+*      - "Allow cookie" buttons' text is now defined in XML;
+*/
+
+/** @var \Magento\Cookie\Block\Html\Notices $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+?>
+<?php
+/** @var \Magento\Cookie\Helper\Cookie $cookieHelper */
+$cookieHelper = $block->getData('cookieHelper');
+?>
+<?php if ($cookieHelper->isCookieRestrictionModeEnabled()): ?>
+    <?php
+        /** @var \MageSuite\Frontend\Helper\Store $storeHelper */
+        $storeHelper = $this->helper('MageSuite\Frontend\Helper\Store');
+        $currentStoreId = $storeHelper->getCurrentStoreId();
+        $cookieNoticeBlockId = $block->getNoticeCmsBlockId();
+        $cookieNoticeCmsBlock = $this->getLayout()
+            ->createBlock('Magento\Cms\Block\Block')
+            ->setCacheKey($cookieNoticeBlockId.'_'.$currentStoreId)
+            ->setCacheLifetime(86400)
+            ->setBlockId($cookieNoticeBlockId)
+            ->toHtml();
+    ?>
+    <div class="cs-cookie-message cs-cookie-message--shown" id="notice-cookie-block">
+        <div class="cs-cookie-message__inner">
+            <?= $block->getChildHtml('cookie_notices.block.icon'); ?>
+            <div class="cs-cookie-message__text">
+                <?php if($cookieNoticeCmsBlock && $cookieNoticeCmsBlock != ''): 
+                    echo $cookieNoticeCmsBlock;
+                else: ?>
+                    <strong><?= $block->escapeHtml(__('We use cookies to make your experience better.')) ?></strong> <?php /* @escapeNotVerified */ echo __('To comply with the new e-Privacy directive, we need to ask for your consent to set the cookies.') ?> <?php /* @escapeNotVerified */ echo __('<a href="%1">Learn more</a>.', $block->getPrivacyPolicyLink()) ?>
+                <?php endif; ?>
+            </div>
+            <div class="cs-cookie-message__button-wrapper">
+                <button type="button" id="btn-cookie-allow" class="cs-cookie-message__button">
+                    <span class="cs-cookie-message__button-span"><?= $block->getAllowCookiesButtonText()?></span>
+                    <?= $block->getChildHtml('cookie_notices.button.icon'); ?>
+                </button>
+            </div>
+        </div>
+    </div>
+    <?= /* @noEscape */ $secureRenderer->renderStyleAsTag("display: none;", 'div#notice-cookie-block') ?>
+    <script type="text/x-magento-init">
+        {
+            "#notice-cookie-block": {
+                "cookieNotices": {
+                    "cookieAllowButtonSelector": "#btn-cookie-allow",
+                    "cookieName": "<?= /* @noEscape */ \Magento\Cookie\Helper\Cookie::IS_USER_ALLOWED_SAVE_COOKIE ?>",
+                    "cookieValue": <?= /* @noEscape */ $cookieHelper->getAcceptedSaveCookiesWebsiteIds() ?>,
+                    "cookieLifetime": <?= /* @noEscape */ $cookieHelper->getCookieRestrictionLifetime() ?>,
+                    "noCookiesUrl": "<?= $block->escapeJs($block->getUrl('cookie/index/noCookies')) ?>"
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

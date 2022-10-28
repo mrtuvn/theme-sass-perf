@@ -1,0 +1,15 @@
+<?php
+/**
+ * Template overriden to match the HTML structure
+ * and styling to the remaining order details blocks.
+ */
+/** @var \Bold\OrderComment\Block\Order\Comment $block */
+?>
+<?php if($comment = $block->getOrderComment()):?>
+<div class="block block-order-details-view">
+    <div class="block-title"><strong><?= /* @escapeNotVerified */ __('Order Comment') ?></strong></div>
+    <div class="block-content">
+        <p><?= $block->getOrderCommentHtml();?></p>
+    </div>
+</div>
+<?php endif; ?>

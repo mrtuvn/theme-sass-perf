@@ -1,0 +1,39 @@
+<?php
+/**
+* Template overridden in order to:
+* - add magasuite classes
+*/
+
+/** @var $block \Magento\Checkout\Block\Registration */
+?>
+<div id="registration" data-bind="scope:'registration'" class="cs-page-success__section cs-page-success__section--registration">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#registration": {
+                "Magento_Ui/js/core/app": {
+                   "components": {
+                        "registration": {
+                            "component": "Magento_Checkout/js/view/registration",
+                            "config": {
+                                "registrationUrl":
+                                    "<?= $block->escapeJs($block->escapeUrl($block->getCreateAccountUrl())) ?>",
+                                "email": "<?= $block->escapeJs($block->getEmailAddress()) ?>"
+                            },
+                            "children": {
+                                "errors": {
+                                    "component": "Magento_Ui/js/view/messages",
+                                    "sortOrder": 0,
+                                    "displayArea": "messages",
+                                    "config": {
+                                        "autoHideTimeOut": -1
+                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</div>

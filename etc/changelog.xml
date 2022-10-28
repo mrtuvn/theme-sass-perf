@@ -1,0 +1,310 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:MageSuite_Changelog:etc/changelog.xsd">
+    <module id="Theme_Creativeshop" name="Theme_Creativeshop">
+        <changelog>
+            <tag version="17.0.0" date="2022-01-28">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Next generation sliders, teasers and product tiles</overview>
+                    <description>
+                        This release introduces a refactor for slider-based components,
+                        like image-teasers and products-carousels, as well as the new structure
+                        and architecture for product tile. It gets rid of a Swiper library,
+                        replacing JS-based slider with modern CSS solutions and simplyfing product-tile,
+                        thanks to CSS Grid possibilities, which gives us more flexibility of styling tile per project,
+                        without element's duplication, overwriting or complex layout changes.
+                        Note that these changes drop some of the functionalities of slider elements
+                        and change strucutures of product tiles and teasers, so they need much attention during the udpate.
+                        Chages are spread across many MageSuite modules.
+
+                        More details can be found in:
+                        https://creativestyle.atlassian.net/wiki/spaces/CSHOP/pages/2135359509/Next+generation+Teaser+Slider+and+Product+Tile
+                    </description>
+                </entry>
+            </tag>
+            <tag version="17.1.0" date="2022-03-21">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>In-place Video Teasers and Consent Management component</overview>
+                    <description>
+                        Introduces support for new Content Constructor possibilities - placing a Video inside of teaser-based components
+                        https://creativestyle.atlassian.net/wiki/spaces/MGS/pages/2017525775/2.16.+Video+Teasers
+                    </description>
+                </entry>
+                <entry>
+                    <type>PERFORMANCE</type>
+                    <overview>Breakpoint utility refactor and breakpoint change event introduced</overview>
+                    <description>New "breakpointChange" event on body has been implemented, that can be referenced instead of widndow resize listeners taht affect performance</description>
+                </entry>
+            </tag>
+            <tag version="17.2.0" date="2022-04-03">
+                <entry>
+                    <type>PERFORMANCE</type>
+                    <overview>Serve google fonts locally</overview>
+                </entry>
+            </tag>
+            <tag version="17.3.0" date="2022-04-06">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Improved scroll snap for iOS</overview>
+                </entry>
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Possibility to add autorotate to sliders on mobile</overview>
+                </entry>
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Brand carousel configuration moved to view.xml, for more flexible customization</overview>
+                </entry>
+            </tag>
+            <tag version="17.4.0" date="2022-04-19">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Add missing deafult scheme to navigation teaser config</overview>
+                </entry>
+                <entry>
+                    <type>FIX</type>
+                    <overview>Improve behaviour of search field and offcanvas navigation on mobile</overview>
+                </entry>
+            </tag>
+            <tag version="17.5.0" date="2022-05-05">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Possibility to set custom settings for products carousel in offcanvas minicart</overview>
+                </entry>
+                <entry>
+                    <type>FIX</type>
+                    <overview>Resolve JS issues with reviews on PDP component</overview>
+                </entry>
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Add animating wishlist badge for support of AJAX "Add to wishlist"</overview>
+                </entry>
+                <entry>
+                    <type>FIX</type>
+                    <overview>Improve slider autorotation - clear autorotate interval before starting new one</overview>
+                </entry>
+                <entry>
+                    <type>SECURITY</type>
+                    <overview>Resolve security vulnerabilities in templates</overview>
+                </entry>
+            </tag>
+            <tag version="17.6.0" date="2022-06-20">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Possibility to set custom settings for products carousel in offcanvas minicart</overview>
+                </entry>
+                <entry>
+                    <type>DEFAULT</type>
+                    <overview>Remove support for carousel with the list view</overview>
+                </entry>
+                <entry>
+                    <type>FIX</type>
+                    <overview>Remove Magento Page Builder leftovers on cateory pages entirely</overview>
+                </entry>
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Add support for autorotation in slider - for mobile devices as an option</overview>
+                </entry>
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Support for MageSuite Instant Purchase feature</overview>
+                </entry>
+            </tag>
+            <tag version="17.6.3" date="2022-07-01">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Eager load posibility for Hero Teaser</overview>
+                </entry>
+                <entry>
+                    <type>FIX</type>
+                    <overview>Fixed reviews pagination/load more button when user click on review link in buybox</overview>
+                </entry>
+                <entry>
+                    <type>FIX</type>
+                    <overview>Fixed sorting, that switched back to default after jumping pages with paginaton</overview>
+                </entry>
+            </tag>
+            <tag version="17.7.0" date="2022-07-13">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Add styles for add-to-homescreen guide and refactor notification-panel styles</overview>
+                    <description>
+                        Styles and icons for new component - a2hs-guide was added were added. it replacec ios-a2hs-guide comppnent.
+                        Push-notifications component was renamed into notification-panel.
+                        --shipping modifier for notification-panel was replaced with more neutral --slim
+                        Styles for a2hs-guide and notifications-panel are commented - they are optional now.
+                    </description>
+                </entry>
+            </tag>
+            <tag version="17.7.1" date="2022-07-14">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Add optional styles for file-attachments module</overview>
+                    <description>
+                        Add "src/components/product-details/attachments/attachments.scss" styles
+                        for optional magesuite-file-attachments module
+                    </description>
+                </entry>
+            </tag>
+            <tag version="17.7.2" date="2022-07-20">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Add additional, universal class for buybox add to wishlist icon</overview>
+                    <description>
+                        In order to make theme compatible with magesuite-wishlist module
+                        add a class to wishlist icon to allowa ajax add to wishlist badge animation
+                    </description>
+                </entry>
+            </tag>
+            <tag version="17.7.3" date="2022-07-21">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Fix pwa-a2hs-guide styles</overview>
+                    <description>
+                        Fix for: Buttons are overlapping when I added a static block
+                        Fix for: Missing arrow when a static block is added (mobile)
+                    </description>
+                </entry>
+            </tag>
+            <tag version="17.7.4" date="2022-07-21">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Add data-product-id to buybox wishlist icon</overview>
+                    <ticket_id>IPET-1422</ticket_id>
+                </entry>
+            </tag>
+            <tag version="17.7.5" date="2022-07-25">
+                 <entry>
+                    <type>FIX</type>
+                    <overview>Fix translation and remove leftover custom-modal styles</overview>
+                </entry>
+            </tag>
+            <tag version="17.8.0" date="2022-08-02">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>PDP Gallery: Improved Cumulative Layout Shift</overview>
+                    <description>
+                        Removed styles that affect browser flow in keeping a space for image that is still loading.
+                        Cleaned up webp-related code, as not supported anymore.
+                    </description>
+                </entry>
+            </tag>
+            <tag version="17.8.1" date="2022-08-03">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>improve SEO: Add custom tag support for product details headlines, fix footer and minicart headlines, add proper styles</overview>
+                </entry>
+            </tag>
+            <tag version="17.8.2" date="2022-08-08">
+                <entry>
+                    <type>FIX</type>
+                    <overview>fix checkout agreements visiblity for orders with only payment step (virtual products and gift cards)</overview>
+                    <ticket_id>DOG-1331</ticket_id>
+                </entry>
+            </tag>
+            <tag version="17.8.3" date="2022-08-10">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Fix style of disabled swatches displayed on product tile when Back-In-Stock feature is active</overview>
+                    <ticket_id>KRG-2240</ticket_id>
+                </entry>
+            </tag>
+            <tag version="17.8.4" date="2022-08-16">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Add missing styles for related products carousels in cart</overview>
+                </entry>
+            </tag>
+            <tag version="17.8.5" date="2022-08-24">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Hide redundant bundle options wrapper for simplified bundle product</overview>
+                </entry>
+            </tag>
+            <tag version="17.8.6" date="2022-08-25">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Unify "My Addresses" string to get the correct breadcrumbs translation in user area</overview>
+                    <ticket_id>IPET-1104</ticket_id>
+                </entry>
+            </tag>
+            <tag version="17.8.7" date="2022-08-26">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Implement additional function for getting video configuration so child projects can extend it</overview>
+                    <ticket_id>NKD-3244</ticket_id>
+                </entry>
+            </tag>
+            <tag version="17.8.8" date="2022-08-26">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Fix support for removing item from cart by setting Qty lesser than min value</overview>
+                    <ticket_id>HAAR-2745</ticket_id>
+                </entry>
+            </tag>
+            <tag version="17.8.9" date="2022-09-02">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Hide redundant bundle options wrapper for simplified bundle product (extended)</overview>
+                    <description>
+                        Hiding bundle options wrapper has been extended to also cover edited products that have been already placed in cart (configure simplified bundle product)
+                    </description>
+                    <ticket_id>KRG-2352</ticket_id>
+                </entry>
+            </tag>
+            <tag version="17.8.10" date="2022-09-16">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Allow using lazyload for background images</overview>
+                </entry>
+            </tag>
+            <tag version="17.8.11" date="2022-10-05">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Fix wrong number of steps in progress bar in checkout</overview>
+                    <ticket_id>NKD-3351</ticket_id>
+                </entry>
+            </tag>
+            <tag version="17.8.12" date="2022-10-05">
+                <entry>
+                    <type>FIX</type>
+                    <overview>[CART] Error message appears twice</overview>
+                    <ticket_id>NKD-3292</ticket_id>
+                </entry>
+            </tag>
+            <tag version="17.8.13" date="2022-10-10">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Fix imports - naming issues</overview>
+                    <ticket_id>P2G-1994</ticket_id>
+                </entry>
+            </tag>
+            <tag version="17.8.14" date="2022-10-12">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Fix offcanvas hide method to remove old CSS class from body</overview>
+                    <ticket_id>HAAR-3229</ticket_id>
+                </entry>
+            </tag>
+            <tag version="17.8.15" date="2022-10-13">
+                <entry>
+                    <type>FIX</type>
+                    <overview>Fix Daily Deal dynamic labels on tile</overview>
+                    <ticket_id>DOG-1350</ticket_id>
+                </entry>
+            </tag>
+            <tag version="17.9.0" date="2022-10-14">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Bump magesuite-frontend-builder to ^3.0.0</overview>
+                </entry>
+            </tag>
+            <tag version="-" date="-">
+                <entry>
+                    <type>FEATURE</type>
+                    <overview>Next feature</overview>
+                </entry>
+            </tag>
+        </changelog>
+    </module>
+</config>

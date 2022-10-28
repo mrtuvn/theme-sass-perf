@@ -1,0 +1,39 @@
+<?php
+/**
+* Template overwritten to:
+* - valid applying filters and configuration before search process is started.
+* - add magesuite classes to messages
+* - move addtionalHtml after messages
+*/
+?>
+<?php
+$productList = $block->getProductListHtml();
+?>
+<?php if ($block->getResultCount()): ?>
+    <?= /* @noEscape */ $block->getChildHtml('tagged_product_list_rss_link') ?>
+    <div class="search results">
+        <?php if ($messages = $block->getNoteMessages()):?>
+            <div class="cs-messages__message cs-messages__message--notice">
+                <?php foreach ($messages as $message):?>
+                    <div class="cs-messages__text">
+                        <?php /* @noEscape */ echo $message?><br />
+                    </div>
+                <?php endforeach;?>
+            </div>
+        <?php endif; ?>
+        <?= /* @noEscape */ $productList ?>
+    </div>
+<?php else: ?>
+
+    <div class="cs-messages">
+        <div class="cs-messages__message cs-messages__message--notice">
+            <?= $block->escapeHtml($block->getNoResultText() ? $block->getNoResultText() : __('Your search returned no results.')) ?>
+            <?php if ($messages = $block->getNoteMessages()):?>
+                <?php foreach ($messages as $message):?>
+                    <br /><?= /* @noEscape */ $message?>
+                <?php endforeach;?>
+            <?php endif; ?>
+        </div>
+    </div>
+    <?= /* @noEscape */ $block->getAdditionalHtml() ?>
+<?php endif; ?>

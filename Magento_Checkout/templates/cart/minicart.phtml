@@ -1,0 +1,102 @@
+<?php
+/**
+* Template overridden to:
+* - add EventTrigger to dropdown
+* - add magesuite classes
+* - add minicart offcanvas as option
+* - integrate with xml configuration (dropdown/offcanvas)
+* - change tags from div into li
+*  * TODO - this is the only place when dropdownDialog is present, however some other scripts depend on dropdownDialog events
+*/
+
+/** @var $block \Magento\Checkout\Block\Cart\Sidebar */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+?>
+<?php
+$label = $block->getXmlLabel();
+$eventTrigger = $block->getEventTrigger();
+$isOffcanvas = $block->getVar('minicart_offcanvas/enabled', 'Magento_Checkout');
+$offcanvasInitClass = $block->getOffcanvasInitClass();
+$actionClasses = $isOffcanvas ? $block->getOffcanvasTriggerClass() : 'showcart';
+?>
+
+<li class="cs-header-user-nav__item <?= $block->getAdditionalCssClasses() ?>"> 
+    <div class="cs-addtocart__minicart minicart-wrapper" data-block="minicart">
+        <a 
+            class="cs-header-user-nav__link cs-addtocart__minicart-link action <?= $actionClasses; ?>"
+            href="<?= $block->escapeUrl($block->getShoppingCartUrl()) ?>"
+            <?php if($isOffcanvas): ?>
+                aria-label="<?= __('Toggle offcanvas minicart'); ?>" 
+                aria-expanded="false"
+            <?php endif; ?> 
+            data-bind="scope: 'minicart_content'"
+        >
+            <div class="cs-header-user-nav__icon-wrapper" data-bind="css: { 'cs-header-user-nav__icon-wrapper--with-items': getCartParam('summary_count') > 0 }">
+                <?= $block->getChildHtml('minicart.icon'); ?>
+                <span class="counter qty empty cs-header-user-nav__qty-counter <?= $block->getBadgeAdditionalCssClasses() ?>" data-bind="css: { 'cs-header-user-nav__qty-counter--have-items': getCartParam('summary_count') > 0, 'cs-header-user-nav__qty-counter--empty': !getCartParam('summary_count') }">
+                    <span class="cs-header-user-nav__qty-counter-span cs-addtocart__minicart-qty-text">
+                        <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+                    </span>
+                </span>
+            </div>
+            <?php if (!empty($label)): ?>
+                <span class="cs-header-user-nav__label"><?= $block->escapeHtml($label) ?></span>
+            <?php endif; ?>
+        </a>
+    </div>
+    <?php if ($block->getIsNeedToDisplaySideBar()): ?>
+        <div id="block-minicart" class="block block-minicart empty"
+            data-role="dropdownDialog"
+            data-mage-init='{"dropdownDialog":{
+                "triggerEvent": "<?= /* @escapeNotVerified */ $eventTrigger ?>",
+                "appendTo":"[data-block=minicart]",
+                "triggerTarget":".showcart",
+                "timeout": "2000",
+                "closeOnMouseLeave": false,
+                "closeOnEscape": true,
+                "triggerClass":"active",
+                "parentClass":"active",
+                "buttons":[]}}'
+        >
+            <?php if($isOffcanvas): ?>
+            <div class="cs-offcanvas cs-offcanvas--side_right <?= $offcanvasInitClass; ?>">
+                <div class="cs-offcanvas__overlay overlay"></div>
+                <div class="cs-offcanvas__drawer drawer">
+                    <div class="cs-minicart-offcanvas__wrapper">
+                        <?php endif; ?>
+                            <div id="minicart-content-wrapper" class="cs-minicart" data-bind="scope: 'minicart_content'">
+                                <!-- ko template: getTemplate() --><!-- /ko -->
+                            </div>
+                            <?= $block->getChildHtml('minicart.addons') ?>
+                        <?php if($isOffcanvas): ?>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+        </div>
+    <?php else: ?>
+        <?php $scriptString = <<<script
+            require(['jquery'], function ($) {
+                $('a.action.showcart').click(function() {
+                    $(document.body).trigger('processStart');
+                });
+            });
+script;
+        ?>
+        <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>
+    <?php endif ?>
+    <?= /* @noEscape */ $secureRenderer->renderTag('script', [], 'window.checkout = ' .
+     /* @noEscape */ $block->getSerializedConfig(), false); ?>
+    <script type="text/x-magento-init">
+    {
+        "[data-block='minicart']": {
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+        },
+        "*": {
+            "Magento_Ui/js/block-loader": "<?= $block->escapeJs(
+                $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif'))
+            ) ?>"
+        }
+    }
+    </script>
+</li>

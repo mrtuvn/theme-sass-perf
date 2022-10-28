@@ -1,0 +1,76 @@
+<?php 
+/** 
+* Custom template to display a sale badge
+*/ 
+
+/** @var \Magento\Catalog\Block\Product\View\Description $block */
+/** @var \MageSuite\Discount\Helper\Discount $discountHelper */
+?>
+
+<?php
+$discountHelper = $this->helper(\MageSuite\Discount\Helper\Discount::class);
+$badgeDiscountValue = $discountHelper->getSalePercentage($block->getProduct());
+
+$enableUpdatingBadgeConfigurables = $block->getEnableUpdatingBadgeConfigurables();
+$isBadgeDiscountType = ($block->getBadgeType() == 'discount') ? true : false;
+$isProductConfigurable = $block->getProduct()->getTypeId() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE;
+
+$shouldRenderSaleBadgeDinamicallyConfigurables = ($isProductConfigurable && $isBadgeDiscountType && $enableUpdatingBadgeConfigurables) ? true : false;
+?>
+
+<?php if($badgeDiscountValue): ?>
+    <?php
+    $label = $block->getLabel();
+    $value = $block->getValueDisplay();
+
+    $wrapperTag = $block->getWrapperTag() ?? 'li';
+
+    $wrapperClass = $block->getWrapperCssClass();
+    $wrapperClass = $wrapperClass ? sprintf('class="%s"', $wrapperClass) : '';
+
+    $cssClass = $block->getCssClass();
+    $cssClass = $cssClass ? sprintf('class="%s"', $cssClass) : '';
+
+    $badgeTextClass = $block->getTextCssClass();
+    $badgeTextClass = $badgeTextClass ? sprintf('class="%s"', $badgeTextClass) : '';
+
+    $configurablesText = $block->getConfigurablesDefaultBadgeText();
+
+    $valuePrefix = $block->getValuePrefix();
+    $valueSuffix = $block->getValueSuffix();
+    ?>
+    <<?= $wrapperTag ?> <?= $wrapperClass ?>>
+        <span <?= $cssClass ?>>
+        <?php if ($label): ?>
+            <span <?= $badgeTextClass ?>><?= $label ?></span>
+        <?php endif; ?>
+            <?php if ($value): ?>
+                <span <?= $badgeTextClass ?>>
+                <?php if ($shouldRenderSaleBadgeDinamicallyConfigurables): ?>
+                    <span class="cs-page-product__badge-discount-text"><?= $configurablesText ?></span>
+                <?php endif; ?>
+                    <?= $valuePrefix ?>
+                <span class="cs-page-product__badge-discount-value"><?= $badgeDiscountValue ?></span>
+                    <?= $valueSuffix ?>
+                </span>
+            <?php endif; ?>
+        </span>
+
+    </<?= $wrapperTag ?>>
+<?php endif; ?>
+
+<?php if ($shouldRenderSaleBadgeDinamicallyConfigurables): ?>
+    <?php $discountsPerProduct = $discountHelper->getConfigurableDiscounts($block->getProduct()); ?>
+    <script type="text/x-magento-init">
+        {
+            ".cs-buybox": {
+                "Magento_Catalog/js/product/view/sale-badge-renderer": {
+                    "discountsList": <?= /* @noEscape */ json_encode($discountsPerProduct); ?>
+                }
+            }
+        }
+    </script>
+<?php endif; ?>
+
+
+

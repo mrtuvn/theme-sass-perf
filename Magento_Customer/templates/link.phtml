@@ -1,0 +1,28 @@
+<?php
+/** Custom template to add login icon in header. TODO Verify link escape */
+?>
+<?php
+    $labelLogIn = $block->getLabelLogIn();
+    $labelLogOut = $block->getLabelLogOut();
+
+    $customerHelper = $this->helper('MageSuite\Frontend\Helper\Customer');
+    $isLoggedIn = $customerHelper->isLoggedIn();
+?>
+
+<li class="cs-header-user-nav__item <?= $block->getAdditionalCssClasses() ?><?php if ($isLoggedIn): ?> cs-header-user-nav__item--logged-in<?php endif; ?>">
+    <a href="<?php /* @escapeNotVerified */ echo $block->getHref(); ?>" class="cs-header-user-nav__link">
+        <div class="cs-header-user-nav__icon-wrapper">
+            <?php if ($isLoggedIn): ?>
+                <?= $block->getChildHtml('my-account-link.icon.logged-in'); ?>
+                <?php if (!empty($labelLogIn)): ?>
+                    <span class="cs-header-user-nav__label"><?= $labelLogIn ?></span>
+                <?php endif; ?>
+            <?php else: ?>
+                <?= $block->getChildHtml('my-account-link.icon.logged-out'); ?>
+                <?php if (!empty($labelLogOut)): ?>
+                    <span class="cs-header-user-nav__label"><?= $labelLogOut ?></span>
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+    </a>
+</li>

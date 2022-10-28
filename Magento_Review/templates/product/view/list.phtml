@@ -1,0 +1,69 @@
+<?php
+/**
+* Template overridden in order to:
+* - move list-item into separate phtml file
+* - add magesuite classes
+*/
+
+use Magento\Review\Block\Product\View\ListView;
+
+/** @var Escaper $escaper */
+
+$items = $block->getReviewsCollection()->getItems();
+$format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
+?>
+<?php if (count($items)): ?>
+    <div class="cs-reviews__content" id="customer-reviews">
+        <ol class="cs-reviews__list">
+            <?php
+
+            foreach ($items as $review): ?>
+
+                <?php
+                $createdAt = $review->getCreatedAt();
+                $ratingVotes = $review->getRatingVotes();
+                $ratingCategoriesCount = count($ratingVotes);
+                $compoundRatings = [];
+                $overallScore = null;
+
+                if ($ratingCategoriesCount) {
+                    $percentageRatingsList = array_map(function ($vote) {
+                        return $vote->getPercent();
+                    }, iterator_to_array($ratingVotes));
+
+                    $averagePercentageRating = array_sum($percentageRatingsList)/$ratingCategoriesCount;
+                    $overallScore = round($averagePercentageRating/20);
+                }
+
+                if ($ratingCategoriesCount > 1) {
+                    foreach ($ratingVotes as $rating) {
+                        array_push($compoundRatings, [
+                            'ratingCode' => $rating->getRatingCode(),
+                            'score' => ($rating->getPercent()/20)
+                            ]);
+                    }
+                }
+                ?>
+
+                <li class="cs-reviews__item">
+                    <?= $this->getLayout()
+                             ->createBlock(\Magento\Framework\View\Element\Template::class)
+                             ->setTemplate('Magento_Review::product/view/list-item.phtml')
+                             ->setTitle($block->escapeHtml($review->getTitle()))
+                             ->setRatingData([
+                                "maxStars" => 5,
+                                "overallScore" => $overallScore,
+                                "compoundRatings" => $compoundRatings
+                             ])
+                             ->setReviewConfigurationData($review->getData('review_configuration_data'))
+                             ->setAuthor($block->escapeHtml($review->getNickname()))
+                             ->setDate($block->formatDate($createdAt, $format))
+                             ->setContent(nl2br($block->escapeHtml($review->getDetail())))
+                             ->toHtml();
+                    ?>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+    <?= $block->getChildHtml('toolbar') ?>
+<?php endif; ?>

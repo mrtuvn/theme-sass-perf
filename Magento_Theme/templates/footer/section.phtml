@@ -1,0 +1,22 @@
+<?php
+/**
+* Custom template
+*/
+$isCollapsible = $block->getIsCollapsible();
+$collapseOptions = $block->getCollapsibleWidgetOptions();
+$headline = $block->getHeadline();
+$headlineTag = $block->getHeadlineTag() ?? 'div';
+?>
+<div
+    class="cs-footer__section<?php if($isCollapsible): ?> cs-footer__section--collapsible<?php endif; ?> <?= $block->getAdditionalCssClasses() ?>"
+    <?php if($isCollapsible): ?>
+         data-mage-init='{"collapsible":<?= !empty($collapseOptions) ? json_encode($collapseOptions) : '{}' ?>}'
+    <?php endif; ?>
+>
+    <?php if ($headline): ?>
+    <<?= $headlineTag ?> class="cs-footer__section-title"<?php if($isCollapsible): ?> data-role="title"<?php endif; ?>>
+            <?= $headline; ?>
+        </<?= $headlineTag ?>>
+    <?php endif; ?>
+    <?= $block->getChildHtml(); ?>
+</div>

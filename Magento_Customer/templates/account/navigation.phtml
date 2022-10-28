@@ -1,0 +1,28 @@
+<?php
+/**
+* Template overridden to:
+* -add magesuite classes
+* -add optional collapse
+*/
+
+/** @var $block \Magento\Framework\View\Element\Html\Links */
+/** @var $block \Magento\Customer\Block\Account\Navigation */ 
+$collapseOptions = $block->getCollapsibleWidgetOptions();
+?>
+<div class="cs-stack-nav | cs-sticky-block cs-sticky-block--no-mobile">
+    <div class="cs-stack-nav__content | account-nav"
+    <?php if($block->getIsCollapsible()): ?>
+         data-mage-init='{"collapsible":<?= !empty($collapseOptions) ? json_encode($collapseOptions) : '{}' ?>}'
+    <?php endif; ?> 
+    >
+        <div class="cs-stack-nav__trigger" data-role="title">
+        <?= $block->escapeHtml( __('My Account Menu')) ?>
+           <?= $block->getChildHtml('dashboard.nav.collapse.icon'); ?>
+        </div>
+        <nav class="cs-stack-nav__nav | nav items" data-role="content">
+            <ul class="cs-stack-nav__list">
+                <?= $block->getChildHtml();?>
+            </ul>
+        </nav>
+    </div>
+</div>

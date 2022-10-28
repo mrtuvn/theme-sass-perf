@@ -1,0 +1,130 @@
+<?php
+/** @var $block \Smile\ElasticsuiteCatalog\Block\Navigation */
+/** @var $viewModel MageSuite\ElasticSuiteAddons\ViewModel\Layer\DisplayFiltersConfiguration */
+$viewModel = $block->getViewModel();
+?>
+<?php if ($block->canShowBlock()):
+    $pageLayout = $this->helper(\MageSuite\ThemeHelpers\Helper\PageLayout::class)->getPageLayout();
+    $isFiltersLayoutHorizontal = $pageLayout == '1column' && !$block->getForceSidebarFiltersStyle() || $block->getForceHorizontalFiltersStyle();
+    $isCategoryFilterHidden = $block->getHideCategoryFilter();
+    $categoryFilterName = $block->getCategoryFilterName();
+
+    $filtersRenderer = $block->getChildBlock('renderer');
+
+    $filters = $block->getDisplayedFilters();
+    $openedFilters = $isFiltersLayoutHorizontal ? 0 : $block->getActiveFilters();
+    $selectedFilters = $block->getLayer()->getState()->getFilters() ?? [];
+    $selectedRequestVars = array_map(function($selectedFilter) {
+        return $selectedFilter->getFilter()->getRequestVar();
+    }, $selectedFilters);
+
+    $isCollapsibleMobile = $block->getIsCollapsibleMobile();
+    $offcanvasMobileEnabled = $block->getVar('offcanvas_filters_enabled/mobile', 'Magento_Catalog');
+    $offcanvasDesktopEnabled = $block->getVar('offcanvas_filters_enabled/desktop', 'Magento_Catalog');
+?>
+    <?php if (!empty($filters)): ?>
+        <?php if ($offcanvasMobileEnabled || $offcanvasDesktopEnabled): ?>
+            <div class="cs-offcanvas-filters">
+                <div class="cs-offcanvas-filters__overlay overlay"></div>
+                <div class="cs-offcanvas-filters__drawer drawer">
+                    <button class="cs-offcanvas-filters__close" title="<?= __('Close') ?>">
+                        <div class="cs-offcanvas-filters__close-icon"></div>
+                    </button>
+                    <div class="cs-offcanvas-filters__headline"><?= __('Filters') ?></div>
+        <?php endif; ?>
+
+        <nav
+            class="cs-aftersearch-nav<?= $isFiltersLayoutHorizontal ? ' cs-aftersearch-nav--horizontal' : ''; ?> block filter"
+            id="layered-filter-block"
+            <?php if ($isCollapsibleMobile): ?>data-mage-init='{ "collapsible": { "active": false, "collateral": { "openedState": "filter-active", "element": "body" }, "mediaQueryScope": "(max-width: 767px)" } }' <?php endif; ?>
+            title="<?= $block->getMobileFiltersTriggerLabel(); ?>"
+            aria-labelledby="cs-aftersearch-nav__filters-trigger"
+        >
+            <?php if ($isCollapsibleMobile): ?>
+                <p class="cs-aftersearch-nav__filters-trigger" id="cs-aftersearch-nav__filters-trigger" data-role="title">
+                    <?= $block->getMobileFiltersTriggerLabel(); ?>
+                </p>
+            <?php endif; ?>
+            <div class="cs-aftersearch-nav__filters block-content filter-content" data-role="content">
+                <ul
+                    class="cs-aftersearch-nav__filter-options<?= $isFiltersLayoutHorizontal ? ' cs-filter-horizontal ' : ''; ?> filter-options"
+                    id="narrow-by-list"
+                    data-role="content"
+                    data-mage-init='{ "accordion": { "openedState": "active", "collapsible": true, "active": <?= $openedFilters; ?>, "multipleCollapsible": <?= $isFiltersLayoutHorizontal ? 'false' : 'true' ?> } }'
+                >
+                <?php if ($block->getVar('toolbar/sorter/display', 'Magento_Catalog') && $block->getVar('toolbar/sorter/display_area', 'Magento_Catalog') == 'filters'): ?>
+                    <li
+                        data-role="collapsible"
+                        class="cs-aftersearch-nav__filter cs-aftersearch-nav__filter--sorter filter-options-item"
+                    >
+                        <?= $block->getChildHtml('sorter'); ?>
+                    </li>
+                <?php endif; ?>
+                <?php foreach ($filters as $filter):
+                    $filterIsChecked = in_array($filter->getRequestVar(), $selectedRequestVars);
+                    $filterDisplaySearchbox = true;
+                    $filterAttributeClass = '';
+                    if (!$viewModel->canDisplayFilters($filter)) {
+                        continue;
+                    }
+                    if ($filter->hasAttributeModel()) {
+                        $filterAttributeClass = 'filter-attribute-' . $filter->getAttributeModel()->getAttributeCode();
+                        $filterDisplaySearchbox = $filter->getAttributeModel()->getDisplaySearchbox() ?? true;
+                    } else {
+                        $filterAttributeClass = 'filter-attribute-' . $filter->getRequestVar();
+                    }
+
+                    if ($isCategoryFilterHidden && $filterAttributeClass == $categoryFilterName) {
+                        continue;
+                    }
+                ?>
+                    <li
+                        data-role="collapsible"
+                        class="cs-aftersearch-nav__filter<?= $filterIsChecked ? ' cs-aftersearch-nav__filter--checked' : '' ?><?= !$filterDisplaySearchbox ? ' cs-aftersearch-nav__filter--hide-searchbox' : ''; ?> <?= $filterAttributeClass ?> filter-options-item"
+                    >
+                        <div data-role="title" class="cs-aftersearch-nav__filter-title filter-options-title">
+                            <span class="cs-aftersearch-nav__filter-title-text">
+                                <?= /* @escapeNotVerified */ __($filter->getName()) ?>
+                            </span>
+                        </div>
+                        <div data-role="content" class="cs-aftersearch-nav__filter-content filter-options-content">
+                            <?= $filtersRenderer->render($filter); ?>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+                <?php if ($isFiltersLayoutHorizontal): ?>
+                    <li class="cs-aftersearch-nav__toggle-wrapper">
+                        <button class="cs-aftersearch-nav__toggle-button" aria-expanded="false" aria-selected="false">
+                            <span class="cs-aftersearch-nav__toggle-text cs-aftersearch-nav__toggle-text--more">
+                                <?= /* @escapeNotVerified */ __('More filters'); ?>
+                            </span>
+                            <span class="cs-aftersearch-nav__toggle-text cs-aftersearch-nav__toggle-text--less">
+                                <?= /* @escapeNotVerified */ __('Less filters'); ?>
+                            </span>
+                        </button>
+                    </li>
+                <?php endif; ?>
+                </ul>
+            </div>
+            <div class="loading-mask cs-aftersearch-nav__loader" data-role="panel">
+                <img
+                    class="cs-aftersearch-nav__loader-icon lazyload"
+                    src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                    data-src="<?= $this->getViewFileUrl('images/spinner.svg'); ?>" alt="Loading..."
+                >
+            </div>
+        </nav>
+
+        <?php if ($offcanvasMobileEnabled || $offcanvasDesktopEnabled): ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+    <?php else: ?>
+        <div
+            class="cs-aftersearch-nav<?= $isFiltersLayoutHorizontal ? ' cs-aftersearch-nav--horizontal' : ''; ?> block filter filter-no-options"
+        >
+            <p class="cs-aftersearch-nav__empty-message"><?= /* @escapeNotVerified */  __('No filters available'); ?>  </p>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

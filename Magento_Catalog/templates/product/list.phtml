@@ -1,0 +1,111 @@
+<?php
+/**
+* Template overridden in order to:
+* - render products as product tile
+* - add magesuite classes
+* - add hotspots
+* - add retina images - category_page_grid_x2
+* - add css/grid-layout.css in case of grid layout
+* - add toolbar at the bottom of list
+* - remove initialization of catalogAddToCart
+* - add empty.category.message child block
+*/
+
+/**
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+// @codingStandardsIgnoreFile
+$productCollection = $block->getLoadedProductCollection();
+$productCollection->addMediaGalleryData();
+$teasersHelper = $block->getTeasersHelperPath() ? $this->helper($block->getTeasersHelperPath()) : null;
+$teaserCssHelper = $this->helper('MageSuite\ContentConstructorFrontend\Helper\TeaserCss');
+?>
+
+<?php if (!$productCollection->count()): ?>
+    <?= $block->getChildHtml('empty.category.message') ?>
+<?php else: ?>
+    <?= $block->getAdditionalHtml() ?>
+
+    <div class="cs-page-category__toolbar-wrapper cs-page-category__toolbar-wrapper--top">
+        <?= $block->getToolbarHtml() ?>
+    </div>
+
+    <?= $block->getChildHtml('hotspot.before.active.filters') ?>
+
+    <?= $block->getChildHtml('state'); ?>
+
+    <?php
+    if ($block->getMode() == 'grid') {
+        $viewMode = 'grid';
+        $viewModeClass = $block->getGridComponentClass();
+        $viewModeAdditionalClass = $block->hasAdditionalGridComponentClass() ? ' ' .$block->getAdditionalGridComponentClass() : '';
+        $viewModeListClass = $block->getGridComponentListClass();
+        $viewModeListItemClass = $block->getGridComponentListItemClass();
+        $image = 'category_page_grid';
+        $image2x = 'category_page_grid_x2';
+    } else {
+        $viewMode = 'list';
+        $viewModeClass = $block->getListComponentClass();
+        $viewModeAdditionalClass = $block->hasAdditionalListComponentClass() ? ' ' .$block->getAdditionalListComponentClass() : '';
+        $viewModeListClass = $block->getListComponentListClass();
+        $viewModeListItemClass = $block->getListComponentListItemClass();
+        $image = 'category_page_list';
+    }
+
+    $pageLayout = $this->helper(\MageSuite\ThemeHelpers\Helper\PageLayout::class)->getPageLayout();
+    $iterator = 0;
+
+    if ($pageLayout != '1column') {
+        $viewModeClass .= ' ' . $viewModeClass . '--with-sidebar';
+    }
+    ?>
+
+    <?php if($viewMode == 'grid'): ?>
+        <?php $teasersSetRandId = $teaserCssHelper->getUniqueComponentId(); ?>
+        <link rel="stylesheet" href="<?= $block->getViewFileUrl('css/grid-layout.css'); ?>"/>
+        <script defer-ignore></script>
+    <?php endif ?>
+
+    <div class="products wrapper <?= $viewMode ?> products-<?= $viewMode ?> cs-page-category__products-wrapper">
+
+        <div class="<?= $viewModeClass . $viewModeAdditionalClass ?>">
+
+            <?= $block->getChildHtml('hotspot.before.list') ?>
+
+            <ol class="products list items product-items <?= $viewModeListClass ?>">
+                <?php /** @var $product \Magento\Catalog\Model\Product */ ?>
+                <?php foreach ($productCollection as $product): ?>
+                    <li class="<?= $viewModeListItemClass ?>">
+                        <?= $this->getLayout()
+                            ->createBlock(\MageSuite\ProductTile\Block\Tile::class)
+                            ->setViewMode($viewMode)
+                            ->setIterator($iterator)
+                            ->setSection('category')
+                            ->render($product);
+                        ?>
+                    </li>
+                    <?php $iterator++; ?>
+                <?php endforeach; ?>
+                <?php if($viewMode == 'grid' && $teasers = $block->getChildBlock('category.teasers')): ?>
+                    <?= $teasers
+                        ->setTeasersSetId($teasersSetRandId)
+                        ->toHtml(); ?>
+                <?php endif; ?>
+            </ol>
+            <?php if($viewMode == 'grid' && $teasersCss = $block->getChildBlock('grid.teasers.css')): ?>
+                <?= $teasersCss
+                    ->setTeasersSetId($teasersSetRandId)
+                    ->setProductsCount($productCollection->count())
+                    ->setIsProductsGrid(false)
+                    ->setUseTeasers(true)
+                    ->toHtml(); ?>
+            <?php endif; ?>
+
+            <?= $block->getChildHtml('hotspot.after.list') ?>
+        </div>
+    </div>
+
+    <div class="cs-page-category__toolbar-wrapper cs-page-category__toolbar-wrapper--bottom">
+        <?= $block->getToolbarHtml() ?>
+    </div>
+<?php endif; ?>

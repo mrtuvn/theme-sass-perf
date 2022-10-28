@@ -1,0 +1,86 @@
+<?php
+/**
+* Template overwritten to:
+* - add magesuite classes
+* - make collapse optional
+* - integrate with xml configuration: headline, icon, labels, input placeholder
+* - add checkout.cart.coupon.additional hotspot
+* TODO - verify if captcha should be removed and also functionality to open collapse if there is coupon already inserted (see newest Magento file)
+*/
+?>
+<?php
+$placeholder = $block->getInputPlaceholder();
+$inputLabel = $block->getInputLabel();
+$buttonApplyLabel = $block->getButtonApplyLabel();
+$buttonCancelLabel = $block->getButtonCancelLabel();
+$collapseOptions = $block->getCollapsibleWidgetOptions();
+?>
+
+<div class="block discount cs-discount <?= $block->getAdditionalCssClasses() ?>" id="block-discount"
+    <?php if($block->getIsCollapsible()): ?>
+        data-mage-init='{"collapsible":<?= !empty($collapseOptions) ? json_encode($collapseOptions) : '{}' ?>}'
+    <?php endif; ?>
+    >
+    <div class="title cs-discount__title" data-role="title">
+        <span class="cs-discount__title-text" id="block-discount-heading" role="heading" aria-level="2">
+            <?= $block->getHeadline(); ?>
+        </span>
+        <?= $block->getChildHtml('checkout.cart.coupon.icon'); ?>
+    </div>
+    <div class="content cs-discount__content" data-role="content" aria-labelledby="block-discount-heading">
+        <form
+            id="discount-coupon-form"
+            action="<?php /* @escapeNotVerified */ echo $block->getUrl('checkout/cart/couponPost') ?>"
+            method="post"
+            data-mage-init='{"discountCode":{"couponCodeSelector": "#coupon_code",
+                                               "removeCouponSelector": "#coupon_remove",
+                                               "applyButton": "#coupon_apply",
+                                               "cancelButton": "#coupon_cancel"}}'
+        >
+            <div class="fieldset coupon<?php strlen($block->getCouponCode()) ? ' applied' : ' ' ?>">
+                <input type="hidden" name="remove" id="coupon_remove" value="0"/>
+                <div class="field">
+                    <?php if(!empty($inputLabel)): ?>
+                    <label for="coupon_code" class="label">
+                        <span><?= $block->escapeHtml($inputLabel) ?></span>
+                    </label>
+                    <?php endif; ?>
+                    <div class="control">
+                        <input
+                            type="text"
+                            class="input-text"
+                            id="coupon_code"
+                            name="coupon_code"
+                            value="<?= $block->escapeHtmlAttr($block->getCouponCode()) ?>"
+                            <?php if(!empty($placeholder)): ?>placeholder="<?= $block->escapeHtmlAttr($placeholder); ?>"<?php endif; ?>
+                        />
+                        <?= $block->getChildHtml('checkout.cart.coupon.additional'); ?>
+                    </div>
+                </div>
+                <div class="actions-toolbar cs-discount__buttons">
+                    <?php if (!strlen($block->getCouponCode())): ?>
+                        <button
+                            class="action apply primary"
+                            type="submit"
+                            id="coupon_apply"
+                            value="<?= $block->escapeHtmlAttr($buttonApplyLabel); ?>"
+                        >
+                            <span><?= $block->escapeHtml($buttonApplyLabel); ?></span>
+                            <?= $block->getChildHtml('checkout.cart.coupon.apply.icon'); ?>
+                        </button>
+                    <?php else: ?>
+                        <button
+                            type="button"
+                            class="action cancel primary"
+                            id="coupon_cancel"
+                            value="<?= $block->escapeHtmlAttr($buttonCancelLabel); ?>"
+                        >
+                            <span><?= $block->escapeHtml($buttonCancelLabel); ?></span>
+                            <?= $block->getChildHtml('checkout.cart.coupon.cancel.icon'); ?>
+                        </button>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="minicart">
+            <arguments>
+                <argument name="xml_label" xsi:type="string" translate="true">Cart</argument>
+                <argument name="additional_css_classes" xsi:type="string">cs-header-user-nav__item--cart cs-addtocart</argument>
+                <argument name="badge_additional_css_classes" xsi:type="string">cs-header-user-nav__qty-counter--minicart cs-addtocart__minicart-qty-badge</argument>
+                <!-- Event trigger can be set for mini-cart only if not in offcanvas (check current config. in view.xml) -->
+                <argument name="event_trigger" xsi:type="string">touchstart mouseenter</argument>
+                <argument name="offcanvas_init_class" xsi:type="string">cs-offcanvas--mini-cart</argument>
+                <argument name="offcanvas_trigger_class" xsi:type="string">cs-minicart__toggle</argument>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="minicart_content" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="showTotalItems" xsi:type="boolean">false</item>
+                                <item name="useDefaultQty" xsi:type="boolean">true</item>
+                            </item>
+                            <item name="children" xsi:type="array">
+                                <item name="item.renderer" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="useDefaultQty" xsi:type="boolean">true</item>
+                                        <item name="showProductOptions" xsi:type="boolean">true</item>
+                                        <item name="showEditProductButton" xsi:type="boolean">true</item>
+                                        <item name="showRemoveProductButton" xsi:type="boolean">true</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+            <block class="MageSuite\ThemeHelpers\Block\Icon" name="minicart.icon">
+                <arguments>
+                    <argument name="icon_url" xsi:type="string">images/icons/header-user-nav/icon-cart.svg</argument>
+                    <argument name="css_class" xsi:type="string">cs-header-user-nav__icon cs-header-user-nav__icon--my-cart</argument>
+                    <argument name="inlined" xsi:type="boolean">true</argument>
+                    <argument name="lazy_loaded" xsi:type="boolean">false</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+        <referenceContainer name="minicart.addons">
+            <container name="minicart.carousel.wrapper" htmlTag="div" htmlClass="cs-minicart__carousel-wrapper">
+                <!-- Spinner icon -->
+                <block class="MageSuite\ThemeHelpers\Block\Icon" name="minicart.carousel.loader.icon">
+                    <arguments>
+                        <argument name="icon_url" xsi:type="string">images/spinner.svg</argument>
+                        <argument name="css_class" xsi:type="string">cs-minicart__carousel-spinner</argument>
+                        <argument name="inlined" xsi:type="boolean">true</argument>
+                        <argument name="lazy_loaded" xsi:type="boolean">false</argument>
+                    </arguments>
+                </block>
+
+                <container name="minicart.carousel.container" htmlTag="div" htmlClass="cs-minicart__carousel-container">
+                    <!-- Headline -->
+                    <block class="Magento\Framework\View\Element\Template" name="minicart.carousel.headline" template="Magento_Checkout::cart/minicart-headline.phtml">
+                        <arguments>
+                            <argument name="headline" xsi:type="string" translate="true">Recommended products</argument>
+                        </arguments>
+                    </block>
+
+                    <container name="minicart.carousel" htmlTag="div" htmlClass="cs-minicart__carousel">
+                        <!-- Force container to render -->
+                        <block class="Magento\Framework\View\Element\Text">
+                            <arguments>
+                                <argument name="text" xsi:type="string"><![CDATA[<!-- minicart carousel container -->]]></argument>
+                            </arguments>
+                        </block>
+                    </container>
+
+                    <!-- Button -->
+                    <block class="Magento\Framework\View\Element\Template" name="minicart.carousel.button" template="Magento_Checkout::cart/minicart-button.phtml">
+                        <arguments>
+                            <argument name="wrapper_css_class" xsi:type="string">cs-minicart__button-carousel-wrapper</argument>
+                            <argument name="button_css_class" xsi:type="string">cs-minicart__button-carousel btn-minicart-close</argument>
+                            <argument name="label" xsi:type="string" translate="true">Continue shopping</argument>
+                        </arguments>
+                        <block class="MageSuite\ThemeHelpers\Block\Icon" name="minicart.carousel.button.icon">
+                            <arguments>
+                                <argument name="icon_url" xsi:type="string">images/icons/arrow_next.svg</argument>
+                                <argument name="css_class" xsi:type="string">cs-minicart__button-carousel-icon</argument>
+                                <argument name="alt_text" xsi:type="string" translate="true">Button icon</argument>
+                                <argument name="lazy_loaded" xsi:type="boolean">true</argument>
+                                <argument name="inlined" xsi:type="boolean">true</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                </container>
+            </container>
+       </referenceContainer>
+
+        <move element="minicart" destination="top.links" />
+    </body>
+</page>

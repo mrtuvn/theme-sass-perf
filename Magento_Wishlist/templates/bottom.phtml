@@ -1,0 +1,81 @@
+<?php
+/* Custom template to add additional bottom wishlist at all user area pages */
+
+/* @var $block \Magento\Wishlist\Block\Customer\Sidebar */
+/* @var \Magento\Wishlist\Helper\Data $wishlistHelper */
+$wishlistHelper = $this->helper('Magento\Wishlist\Helper\Data');
+$items = $wishlistHelper->getWishlistItemCollection()->getItems();
+
+$viewMode = $block->getViewMode();
+$viewModeClass = $block->getGridComponentClass();
+$viewModeAdditionalClass = $block->hasAdditionalGridComponentClass() ? ' ' .$block->getAdditionalGridComponentClass() : '';
+$viewModeListClass = $block->getGridComponentListClass();
+$viewModeListItemClass = $block->getGridComponentListItemClass();
+
+$pageLayout = $this->helper(\MageSuite\ThemeHelpers\Helper\PageLayout::class)->getPageLayout();
+if ($pageLayout != '1column') {
+    $viewModeClass .= ' ' . $viewModeClass . '--with-sidebar';
+}
+$wishlistGridLayoutSettings = json_encode($block->getVar('grid_layout/wishlist/js') ?: '{}');
+
+?>
+<?php if ($wishlistHelper->isAllow()) : ?>
+    <?php if ($viewMode == 'grid'): ?>
+        <link rel="stylesheet" href="<?= $block->getViewFileUrl('css/grid-layout.css'); ?>"/>
+        <script defer-ignore></script>
+    <?php endif ?>
+    <div
+        class="block block-wishlist"
+        data-bind="scope: 'wishlist'"
+        data-mage-init='{"wishlist":{}}'
+    >
+        <div class="block-title">
+            <strong role="heading" aria-level="2"><?= $block->escapeHtml($block->getTitle()) ?></strong>
+            <!-- ko if: wishlist().counter -->
+            <span data-bind="text: wishlist().counter" class="counter"></span>
+            <!-- /ko -->
+            <a
+                href="<?= /* @escapeNotVerified */ $this->helper('Magento\Wishlist\Helper\Data')->getListUrl() ?>"
+                title="<?= /* @escapeNotVerified */ __('Go to Wish List') ?>"
+            >
+                <?= /* @escapeNotVerified */ __('Go to Wish List') ?>
+            </a>
+        </div>
+
+        <div class="block-content">
+            <?php if (empty($items)): ?>
+                <p><?= /* @escapeNotVerified */ __('You have no items in your wish list.') ?></p>
+            <?php else: ?>
+                <div class="<?= $viewModeClass . $viewModeAdditionalClass ?>">
+                    <ol class="<?= $viewModeListClass ?>" id="wishlist-sidebar">
+                        <?php foreach($items as $item): ?>
+                            <li class="<?= $viewModeListItemClass ?>">
+                                <?= $this->getLayout()
+                                    ->createBlock(\MageSuite\ProductTile\Block\Tile::class)
+                                    ->setAreas(['wishlist', 'mini-wishlist'])
+                                    ->setSection('wishlist')
+                                    ->setViewMode($viewMode)
+                                    ->setWishlistItem($item)
+                                    ->render($item->getProduct());
+                                ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ol>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "wishlist": {
+                        "component": "Magento_Wishlist/js/view/wishlist"
+                    }
+                }
+            }
+        }
+    }
+</script>

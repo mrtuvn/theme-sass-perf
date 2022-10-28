@@ -1,0 +1,35 @@
+<?php
+/**
+* - add magesuite classes
+* - wrap in li tag
+* - add child block and customizable label
+*/
+/** @var \Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist $block */
+?>
+<?php if ($block->isWishListAllowed()) : ?>
+    <?php
+        $product = $block->getProduct();
+        $productId = $product->getId();
+    ?>
+    <li class="cs-buybox__addto-item <?= $block->getAdditionalCssClasses() ?>">
+        <a href="#"
+           class="action towishlist cs-buybox__addto-link"
+           title="<?= $block->getLinkLabel() ?? __('Add to wishlist') ?>"
+           data-role="add-to-links"
+           data-post='<?= /* @noEscape */ $block->getWishlistParams() ?>'
+           data-uenc-update='true'
+           data-action="add-to-wishlist"
+           data-product-id="<?= $productId; ?>"
+        >
+            <?= $block->getChildHtml(''); ?>
+            <span class="cs-buybox__addto-link-text"><?= $block->getLinkLabel() ?></span>
+        </a>
+    </li>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "addToWishlist": <?= /* @noEscape */ $block->getWishlistOptionsJson() ?>
+        }
+    }
+</script>

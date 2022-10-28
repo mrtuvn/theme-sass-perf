@@ -1,0 +1,27 @@
+<!--
+/**
+ * Sidebar needs additional wrapper
+ * Also next button is removed and move to custom template
+ */
+-->
+
+<div class="cs-checkout__sidebar">
+    <div class="cs-checkout__sidebar-inner">
+        <div class="opc-block-shipping-information">
+            <!-- ko foreach: getRegion('shipping-information') -->
+            <!-- ko template: getTemplate() -->
+            <!-- /ko -->
+            <!--/ko-->
+        </div>
+
+        <!-- ko foreach: getRegion('summary') -->
+        <!-- ko template: getTemplate() -->
+        <!-- /ko -->
+        <!--/ko-->
+    </div>
+
+    <!-- ko foreach: getRegion('next-button') -->
+    <!-- ko template: getTemplate() -->
+    <!-- /ko -->
+    <!--/ko-->
+</div>

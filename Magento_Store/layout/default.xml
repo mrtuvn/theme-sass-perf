@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="top.bar.container.wrapper">
+            <block class="Magento\Store\Block\Switcher" name="store_language" template="Magento_Store::switch/languages.phtml" before="currency.switcher">
+                <arguments>
+                    <argument name="additional_css_classes" xsi:type="string">cs-dropdown-switcher--topbar cs-dropdown-switcher--language</argument>
+                    <argument name="show_flags" xsi:type="boolean">true</argument>
+                    <argument name="show_labels" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

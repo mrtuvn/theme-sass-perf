@@ -1,0 +1,71 @@
+<?php
+// @codingStandardsIgnoreFile
+
+// Override to display main image before gallery is loaded
+
+/**
+* Product media data template
+*
+* @var $block \Magento\Catalog\Block\Product\View\Gallery
+*/
+?>
+<?php
+    $galleryImagesJson = $block->getGalleryImagesJson();
+    // Extracting main image to show before JS gallery loads
+    $galleryImages = json_decode($galleryImagesJson);
+    $mainImageUrl  = '';
+    $mainImageAlt  = '';
+
+    $totalImages = count($galleryImages);
+    
+    for ($imageIndex = 0; $imageIndex < $totalImages; $imageIndex++) {
+        $galleryImage = $galleryImages[$imageIndex];
+        if ($galleryImage->isMain) {
+            $mainImageUrl = $galleryImage->img;
+            $mainImageAlt = $galleryImage->caption;
+            break;
+        }
+    }
+
+    // Fix for jumping content
+    $imageWidth = $block->getImageAttribute('product_page_image_medium', 'width');
+    $imageHeight = $block->getImageAttribute('product_page_image_medium', 'height');
+    
+    // Webp support
+    $imageTypeHelper = $this->helper('MageSuite\ThemeHelpers\Helper\ImageType');
+    $imageMimeType = $imageTypeHelper->getMimeType($mainImageUrl);
+
+    $imgClass = $block->getImgClass();
+?>
+<div class="gallery-placeholder _block-content-loading cs-product-gallery<?= $totalImages === 1 ? ' cs-product-gallery--single' : ''?>" data-gallery-role="gallery-placeholder">
+    <picture class="cs-product-gallery__placeholder-image gallery-placeholder__image">
+        <source
+            type="<?= $imageMimeType ?>"
+            srcset="<?= $mainImageUrl ?>"
+            alt="<?= $mainImageAlt ?>"
+        >
+        <img
+            type="<?= $imageMimeType ?>"
+            src="<?= $mainImageUrl ?>"
+            alt="<?= $mainImageAlt ?>"
+            width="<?= $imageWidth ?>"
+            height="<?= $imageHeight ?>"
+            class="<?= $imgClass ?>"
+        >
+    </picture>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "[data-gallery-role=gallery-placeholder]": {
+            "mage/gallery/gallery": {
+                "mixins":["magnifier/magnify"],
+                "magnifierOpts": <?= /* @noEscape */ $block->getMagnifier() ?>,
+                "data": <?= /* @noEscape */ $block->getGalleryImagesJson() ?>,
+                "options": <?= /* @noEscape */ $block->getGalleryOptions()->getOptionsJson() ?>,
+                "fullscreen": <?= /* @noEscape */ $block->getGalleryOptions()->getFSOptionsJson() ?>,
+                "breakpoints": <?= /* @noEscape */ $block->getBreakpoints() ?>
+            }
+        }
+    }
+</script>

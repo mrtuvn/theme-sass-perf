@@ -1,0 +1,854 @@
+<?xml version="1.0"?>
+<view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/view.xsd">
+    <vars module="MageSuite_ContentConstructor">
+        <var name="columns">
+            <var name="default_layout">multiple-columns</var>
+            <var name="one-column">
+                <var name="phone">1</var>
+                <var name="phoneLg">2</var>
+                <var name="tablet">3</var>
+                <var name="laptop">4</var>
+                <var name="laptopLg">4</var>
+                <var name="desktop">4</var>
+                <var name="tv">4</var>
+            </var>
+            <var name="multiple-columns">
+                <var name="phone">1</var>
+                <var name="phoneLg">2</var>
+                <var name="tablet">2</var>
+                <var name="laptop">3</var>
+                <var name="laptopLg">3</var>
+                <var name="desktop">3</var>
+                <var name="tv">3</var>
+            </var>
+        </var>
+        <var name="sections">
+            <var name="banner_form.banner_form">
+                <var name="0">cc-content</var>
+            </var>
+            <var name="cms_page_form.cms_page_form">
+                <var name="0">content</var>
+            </var>
+            <var name="cms_block_form.cms_block_form">
+                <var name="0">content</var>
+            </var>
+            <var name="cmsstaging_page_update_form.cmsstaging_page_update_form">
+                <var name="0">content</var>
+            </var>
+            <var name="cmsstaging_block_update_form.cmsstaging_block_update_form">
+                <var name="0">content</var>
+            </var>
+            <var name="product_form.product_form">
+                <var name="0">cc-content</var>
+            </var>
+            <var name="catalogstaging_update_form.catalogstaging_update_form">
+                <var name="0">cc-content</var>
+            </var>
+            <var name="catalogstaging_category_update_form.catalogstaging_category_update_form">
+                <var name="0">cc-top</var>
+                <var name="1">grid</var>
+                <var name="2">cc-bottom</var>
+            </var>
+            <var name="category_form.category_form">
+                <var name="0">cc-top</var>
+                <var name="1">grid</var>
+                <var name="2">cc-bottom</var>
+            </var>
+            <var name="brands_edit_form.brands_edit_form">
+                <var name="0">cc-top</var>
+                <var name="1">grid</var>
+                <var name="2">cc-bottom</var>
+            </var>
+            <var name="defaults">
+                <var name="banner_form.banner_form">cc-content</var>
+                <var name="cms_page_form.cms_page_form">content</var>
+                <var name="cms_block_form.cms_block_form">content</var>
+                <var name="cmsstaging_page_update_form.cmsstaging_page_update_form">content</var>
+                <var name="cmsstaging_block_update_form.cmsstaging_block_update_form">content</var>
+                <var name="product_form.product_form">cc-content</var>
+                <var name="catalogstaging_update_form.catalogstaging_update_for">cc-content</var>
+                <var name="category_form.category_form">grid</var>
+                <var name="catalogstaging_category_update_form.catalogstaging_category_update_form">grid</var>
+                <var name="brands_edit_form.brands_edit_form">grid</var>
+            </var>
+        </var>
+        <var name="special_components">
+            <var name="0">magento-product-grid-teasers</var>
+        </var>
+        <var name="filters">
+            <var name="component_visibility">
+                <var name="icon">#icon_eye</var>
+                <var name="title">Storefront visibility</var>
+                <var name="options">
+                    <var name="mobile">
+                        <var name="label">Mobile</var>
+                        <var name="value">true</var>
+                    </var>
+                    <var name="desktop">
+                        <var name="label">Desktop</var>
+                        <var name="value">true</var>
+                    </var>
+                    <var name="none">
+                        <var name="label">Not visible</var>
+                        <var name="value">true</var>
+                    </var>
+                </var>
+            </var>
+        </var>
+        <var name="image_teasers_content_positions">
+            <var name="0">Text vertically centered on the left</var>
+            <var name="1">Text on the bottom, left corner</var>
+            <var name="2">Text vertically centered in the middle</var>
+            <var name="3">Text on the bottom - centered</var>
+        </var>
+        <var name="teaser">
+            <var name="tabs">
+                <var name="0">
+                    <var name="label">content</var>
+                    <var name="content">#content</var>
+                </var>
+                <var name="1">
+                    <var name="label">style</var>
+                    <var name="content">#style</var>
+                </var>
+                <!-- see https://creativestyle.atlassian.net/wiki/spaces/CSHOP/pages/41977882/Custom+fields+Teaser+based+components for adding custom fields -->
+            </var>
+            <var name="color_schemes">
+                <var name="0">dark</var>
+                <var name="1">light</var>
+            </var>
+            <var name="optimizers_intensity_steps">
+                <var name="overlay">10</var>
+                <var name="gradient">10</var>
+                <var name="container">10</var>
+                <var name="text_shadow">10</var>
+            </var>
+        </var>
+        <var name="mosaic">
+            <var name="support_breakpoint_dedicated_images">false</var>
+            <var name="js"></var>
+        </var>
+        <var name="accordion">
+            <var name="support_groups">false</var>
+            <var name="accordion_options">
+                <var name="collapsible">true</var>
+            </var>
+            <var name="js"></var>
+        </var>
+    </vars>
+
+    <vars module="MageSuite_ContentConstructorFrontend">
+        <var name="component_hidden_classes">
+            <var name="mobile">cs-display-controller--hidden-mobile</var>
+            <var name="desktop">cs-display-controller--hidden-desktop</var>
+        </var>
+        <var name="min_content_width">320</var>
+        <var name="max_content_width">1200</var>
+
+        <var name="accordion">
+            <var name="arrow_icon"></var>
+        </var>
+
+        <var name="brand_carousel">
+            <var name="additional_css_classes"></var>
+            <var name="link_brands">true</var>
+            <var name="pagination">
+                <var name="additional_css_classes"></var>
+            </var>
+            <var name="navigation">
+                <var name="show">true</var>
+                <var name="arrows">
+                    <var name="prev">
+                        <var name="additional_css_classes"></var>
+                        <var name="path">images/icons/icon_arrow-left.svg</var>
+                    </var>
+                    <var name="next">
+                        <var name="additional_css_classes"></var>
+                        <var name="path">images/icons/icon_arrow-right.svg</var>
+                    </var>
+                </var>
+            </var>
+            <var name="js">
+                <var name="slidesWrapperSelector">.cs-brand-carousel__slides</var>
+                <var name="slideSelector">.cs-brand-carousel__slide</var>
+                <var name="usePagination">true</var>
+                <var name="paginationOptions">
+                    <var name="fractionBreakpoint">10</var>
+                    <var name="fractionPattern">%currentSlide / %allSlides</var>
+                </var>
+                <var name="useAutorotation">false</var>
+                <var name="columnsConfig">
+                    <var name="phone">2</var>
+                    <var name="phoneLg">3</var>
+                    <var name="tablet">5</var>
+                    <var name="laptop">8</var>
+                    <var name="laptopLg">8</var>
+                    <var name="desktop">8</var>
+                    <var name="tv">8</var>
+                </var>
+            </var>
+        </var>
+        <var name="button">
+            <var name="additional_css_classes"></var>
+            <var name="icon_path">images/icons/arrow_next.svg</var>
+        </var>
+        <var name="category_links">
+            <var name="additional_css_classes"></var>
+            <var name="show_title">true</var>
+            <var name="hide_links_breakpoints">
+                <var name="tablet">
+                    <var name="additional_css_classes">cs-category-links__list-item--hide-tablet</var>
+                    <var name="hide_from">5</var>
+                </var>
+                <var name="laptop">
+                    <var name="additional_css_classes">cs-category-links__list-item--hide-laptop</var>
+                    <var name="hide_from">7</var>
+                </var>
+                <var name="laptopLg">
+                    <var name="additional_css_classes">cs-category-links__list-item--hide-laptopLg</var>
+                    <var name="hide_from">8</var>
+                </var>
+                <var name="desktop">
+                    <var name="additional_css_classes">cs-category-links__list-item--hide-desktop</var>
+                    <var name="hide_from">10</var>
+                </var>
+            </var>
+            <var name="all_products">
+                <var name="label">All Products</var>
+                <var name="icon">images/icons/icon_arrow-right.svg</var>
+            </var>
+        </var>
+        <var name="cms_teaser">
+            <var name="additional_css_classes"></var>
+            <var name="content_placement">over</var>
+            <var name="pagination">
+                <var name="additional_css_classes"></var>
+            </var>
+            <var name="navigation">
+                <var name="show">true</var>
+                <var name="arrows">
+                    <var name="prev">
+                        <var name="additional_css_classes"></var>
+                        <var name="path">images/icons/icon_arrow-left.svg</var>
+                    </var>
+                    <var name="next">
+                        <var name="additional_css_classes"></var>
+                        <var name="path">images/icons/icon_arrow-right.svg</var>
+                    </var>
+                </var>
+            </var>
+            <var name="items_options">
+                <var name="image">
+                    <var name="aspect_ratio">640:539</var>
+                </var>
+                <var name="optimizers">
+                    <var name="color_scheme">dark</var>
+                    <var name="mirror_image">0</var>
+                    <var name="scenarios">
+                        <var name="none">
+                            <var name="enabled">1</var>
+                        </var>
+                        <var name="overlay">
+                            <var name="enabled">0</var>
+                            <var name="intensity">50</var>
+                        </var>
+                        <var name="gradient">
+                            <var name="enabled">0</var>
+                            <var name="intensity">50</var>
+                            <var name="direction">
+                                <var name="x">1</var>
+                                <var name="y">1</var>
+                            </var>
+                        </var>
+                        <var name="container">
+                            <var name="enabled">0</var>
+                            <var name="intensity">50</var>
+                        </var>
+                        <var name="text_shadow">
+                            <var name="enabled">0</var>
+                            <var name="intensity">50</var>
+                        </var>
+                    </var>
+                </var>
+            </var>
+            <var name="cta_button_icon_path">images/icons/arrow_next.svg</var>
+        </var>
+        <var name="daily_deal_teaser">
+            <var name="additional_css_classes"></var>
+            <var name="lazyload_image">true</var>
+            <var name="show_brand">false</var>
+            <var name="show_rating">true</var>
+            <var name="show_available_amount_section">true</var>
+            <var name="addtocart_button">
+                <var name="show">true</var>
+                <var name="icon_path">images/icons/arrow_next.svg</var>
+            </var>
+            <var name="discount_badge">
+                <var name="show">true</var>
+                <var name="show_sale_label">false</var>
+                <var name="show_percentage">true</var>
+                <var name="prefix">-</var>
+                <var name="suffix">%</var>
+            </var>
+            <var name="expired_notice">
+                <var name="show">false</var>
+                <var name="content"></var>
+            </var>
+            <var name="js"></var>
+        </var>
+        <var name="headline">
+            <var name="additional_css_classes"></var>
+        </var>
+        <var name="hero_carousel">
+            <var name="additional_css_classes">cs-hero--centered</var>
+            <var name="teaser_width">container-slider</var><!-- container-slider or window-slider -->
+            <var name="content_placement">over</var>
+            <var name="cta_button_icon_path">images/icons/hero/arrow_next.svg</var>
+            <var name="sizes">(max-width: 48em) 100vw, (max-width: 1200px) 80vw, 960px</var>
+            <var name="use_whole_screen">false</var> <!-- applies to container-width slider (desktop)-->
+            <var name="eager_load_first_image">true</var>
+            <var name="navigation">
+                <var name="show">true</var>
+                <var name="arrows">
+                    <var name="prev">
+                        <var name="additional_css_classes"></var>
+                        <var name="path">images/icons/icon_arrow-left.svg</var>
+                    </var>
+                    <var name="next">
+                        <var name="additional_css_classes"></var>
+                        <var name="path">images/icons/icon_arrow-right.svg</var>
+                    </var>
+                </var>
+            </var>
+            <var name="pagination">
+                <var name="additional_css_classes"></var>
+            </var>
+            <var name="js">
+                <var name="usePagination">true</var>
+                <var name="useAutorotation">true</var>
+            </var>
+        </var>
+        <var name="image_teaser">
+            <var name="additional_css_classes"></var>
+            <var name="cta_button_icon_path">images/icons/arrow_next.svg</var>
+            <var name="use_whole_screen">false</var> <!-- applies to container-width slider (desktop)-->
+            <var name="navigation">
+                <var name="show">true</var>
+                <var name="arrows">
+                    <var name="prev">
+                        <var name="additional_css_classes"></var>
+                        <var name="path">images/icons/icon_arrow-left.svg</var>
+                    </var>
+                    <var name="next">
+                        <var name="additional_css_classes"></var>
+                        <var name="path">images/icons/icon_arrow-right.svg</var>
+                    </var>
+                </var>
+            </var>
+            <var name="pagination">
+                <var name="additional_css_classes"></var>
+            </var>
+            <var name="js">
+                <var name="usePagination">true</var>
+                <var name="paginationOptions">
+                    <var name="fractionBreakpoint">9</var>
+                    <var name="fractionPattern">%currentSlide / %allSlides</var>
+                </var>
+                <var name="useAutorotation">false</var>
+            </var>
+        </var>
+        <var name="icon">
+            <var name="navigation">
+                <var name="show">true</var>
+                <var name="arrows">
+                    <var name="prev">
+                        <var name="additional_css_classes"></var>
+                        <var name="path">images/icons/icon_arrow-left.svg</var>
+                    </var>
+                    <var name="next">
+                        <var name="additional_css_classes"></var>
+                        <var name="path">images/icons/icon_arrow-right.svg</var>
+                    </var>
+                </var>
+            </var>
+            <var name="js">
+                <var name="usePagination">true</var>
+                <var name="paginationOptions">
+                    <var name="fractionBreakpoint">9</var>
+                    <var name="fractionPattern">%currentSlide / %allSlides</var>
+                </var>
+                <!-- Make sure you won't affect CC settings (for icon component they define columnsConfig for laptop+ resolutions) -->
+                <var name="columnsConfig">
+                    <var name="0px">2</var>
+                    <var name="phone">2</var>
+                    <var name="phoneLg">3</var>
+                    <var name="tablet">5</var>
+                </var>
+            </var>
+        </var>
+        <var name="teaser_and_text">
+            <var name="js"></var>
+        </var>
+        <var name="paragraph">
+            <var name="additional_css_classes"></var>
+        </var>
+        <var name="product_carousel">
+            <var name="additional_css_classes"></var>
+            <var name="use_whole_screen">false</var>
+            <var name="navigation">
+                <var name="show">true</var>
+                <var name="arrows">
+                    <var name="prev">
+                        <var name="additional_css_classes"></var>
+                        <var name="path">images/icons/icon_arrow-left.svg</var>
+                    </var>
+                    <var name="next">
+                        <var name="additional_css_classes"></var>
+                        <var name="path">images/icons/icon_arrow-right.svg</var>
+                    </var>
+                </var>
+            </var>
+            <var name="pagination">
+                <var name="additional_css_classes"></var>
+            </var>
+            <var name="scrollbar">
+                <var name="additional_css_classes"></var>
+                <var name="show">false</var>
+            </var>
+            <var name="js">
+                <var name="slidesWrapperSelector">.cs-products-carousel__slides</var>
+                <var name="slideSelector">.cs-products-carousel__slide</var>
+                <var name="usePagination">true</var>
+                <var name="paginationOptions">
+                    <var name="fractionBreakpoint">10</var>
+                    <var name="fractionPattern">%currentSlide / %allSlides</var>
+                </var>
+                <var name="useAutorotation">false</var>
+            </var>
+        </var>
+        <var name="product_teaser">
+            <var name="additional_css_classes"></var>
+            <var name="show_swatches">true</var>
+            <var name="show_sku">true</var>
+            <var name="show_rating">true</var>
+            <var name="show_price">true</var>
+            <var name="show_addtocart">true</var>
+            <var name="description">
+                <var name="show">true</var>
+                <!-- attribute type has to be "text field/text area/text editor" and its "Used in Product Listing" setting has to be set to TRUE -->
+                <var name="attribute_code">short_description</var>
+            </var>
+        </var>
+        <var name="product_finder">
+            <var name="additional_css_classes"></var>
+            <var name="button_icon_path">images/icons/arrow_prev.svg</var>
+            <var name="js"></var>
+        </var>
+        <var name="product_grid">
+            <var name="additional_css_classes"></var>
+            <var name="lazyload_heros_images">true</var>
+            <var name="cta_button_icon_path">images/icons/arrow_next.svg</var>
+        </var>
+        <var name="separator">
+            <var name="additional_css_classes"></var>
+            <var name="show_line">true</var>
+        </var>
+        <var name="static_block">
+            <var name="additional_css_classes"></var>
+        </var>
+        <var name="grid_layout">
+            <var name="pop">
+                <var name="js"></var>
+            </var>
+            <var name="wishlist">
+                <var name="js"></var>
+            </var>
+            <var name="product_grid">
+                <var name="js"></var>
+            </var>
+        </var>
+        <var name="video_teaser">
+            <var name="youtube">
+                <var name="loop">1</var> <!-- Play the video again when it reaches the end - not available as player_vars for single YouTube videos -->
+                <var name="width">100%</var>
+                <var name="height">100%</var>
+                <var name="player_vars"> <!-- https://developers.google.com/youtube/player_parameters -->
+                    <var name="playsinline">1</var> <!-- Play video inline on mobile devices -->
+                    <var name="autoplay">1</var> <!-- Automatically start playback of the video -->
+                    <var name="mute">1</var> <!-- Mute video on load -->
+                    <var name="controls">0</var> <!-- Show all elements in player -->
+                    <var name="disablekb">1</var> <!-- Disable keyboard control -->
+                    <var name="rel">0</var> <!-- Show related videos -->
+                    <var name="modestbranding">1</var> <!-- Hide YouTube branding -->
+                </var>
+            </var>
+            <var name="vimeo">
+                <var name="width">100%</var>
+                <var name="height">100%</var>
+                <var name="player_vars"> <!-- https://developer.vimeo.com/player/sdk/embed -->
+                    <var name="playsinline">1</var> <!-- Play video inline on mobile devices -->
+                    <var name="autoplay">1</var> <!-- Automatically start playback of the video -->
+                    <var name="muted">1</var> <!-- Mute video on load -->
+                    <var name="controls">0</var> <!-- Show all elements in player -->
+                    <var name="loop">1</var> <!-- Play the video again when it reaches the end -->
+                    <var name="responsive">1</var> <!-- Resize according to the parent element -->
+                </var>
+            </var>
+            <var name="facebook">
+                <var name="app_id"></var> <!-- Facebook developers application ID -->
+                <var name="app_version"></var> <!-- Facebook developers application version, example: v3.2 -->
+                <var name="width">auto</var> <!-- Facebook does not accept % values -->
+                <var name="player_vars"> <!-- https://developers.facebook.com/docs/plugins/embedded-video-player#settings -->
+                    <var name="autoplay">1</var> <!-- Automatically start playback of the video -->
+                    <var name="mute">1</var> <!-- Mute video on load -->
+                    <var name="controls">0</var> <!-- Show all elements in player -->
+                    <var name="loop">1</var> <!-- Play the video again when it reaches the end -->
+                </var>
+            </var>
+            <var name="file">
+                <var name="width">100%</var>
+                <var name="height">auto</var>
+                <var name="player_vars">
+                    <var name="playsinline">1</var> <!-- Play video inline on mobile devices -->
+                    <var name="autoplay">1</var> <!-- Automatically start playback of the video -->
+                    <var name="controls">0</var> <!-- Show all elements in player -->
+                    <var name="muted">1</var> <!-- Mute video on load -->
+                    <var name="loop">1</var> <!-- Play the video again when it reaches the end -->
+                </var>
+            </var>
+        </var>
+        <var name="video_layer">
+            <var name="mobile_fullscreen">true</var> <!-- Force fullscreen for touch and mobile devices -->
+            <var name="modal_type">popup</var> <!-- Magento modal type -->
+            <var name="youtube">
+                <var name="loop">1</var> <!-- Play the video again when it reaches the end - not available as player_vars for single YouTube videos -->
+                <var name="width">1200</var>
+                <var name="height">675</var>
+                <!-- https://developers.google.com/youtube/player_parameters -->
+                <var name="player_vars">
+                    <var name="playsinline">1</var> <!-- Play video inline on mobile devices -->
+                    <var name="autoplay">1</var> <!-- Automatically start playback of the video -->
+                    <var name="controls">1</var> <!-- Show all elements in player -->
+                    <var name="rel">0</var> <!-- Show related videos -->
+                </var>
+            </var>
+        </var>
+    </vars>
+
+    <vars module="MageSuite_ThemeHelpers">
+        <var name="qty_increment">
+            <var name="template">MageSuite_ThemeHelpers::qty-increment.phtml</var>
+            <var name="icons">
+                <var name="decrement">images/icons/qty-increment/minus.svg</var>
+                <var name="increment">images/icons/qty-increment/plus.svg</var>
+            </var>
+        </var>
+    </vars>
+
+    <vars module="MageSuite_ProductTile">
+        <var name="product_image_lazyload_from">6</var>
+    </vars>
+
+    <vars module="Magento_Theme">
+        <var name="toolbar">
+            <var name="pagination">
+                <!-- You can decide about pagination mode (text input / bullet points) in admin panel (Stores -> Configuration -> MAGESUITE -> Pagination). Define 'catalog_category_view' to use input mode or remove it to use bullet points on category pages. You can decide on this mode 'per page' by manipulating other handlers in this way. -->
+                <var name="display">true</var>
+                <var name="prefix_label">Page:</var>
+                <var name="display_prev_next_buttons_if_disabled">true</var>
+                <var name="display_prev_next_labels">false</var>
+                <!-- if last_page_separator will be left empty, it will display as '/'. The reason is that we don't want to put it as translateable string -->
+                <var name="last_page_separator"></var>
+                <var name="icons">
+                    <var name="previous_page">images/icons/toolbar/pagination-previous-page.svg</var>
+                    <var name="next_page">images/icons/toolbar/pagination-next-page.svg</var>
+                </var>
+            </var>
+        </var>
+        <var name="header">
+            <var name="mobile_is_bottom">false</var> <!-- The default position of the header is on the top for mobile, but bottom position (true value) is also supported. -->
+            <var name="mobile_is_sticky">true</var> <!-- The default behavior on mobile is to keep header sticky, but false value is also supported. If header is on the bottom on mobile please always set the variable as true. -->
+            <var name="mobile_menu_is_right">false</var> <!-- By default position of offcanvas toggle is on the left. For better UX the the position of the offcanvas toggle can be changed to the right. -->
+            <var name="mobile_search_in_offcanvas">false</var> <!-- Search input can be moved to the offcanvas if set to true.-->
+            <var name="mobile_logo_path"></var> <!-- If path present separate logo (f.e. reduced) is displayed on mobile resolutions (below tablet). In the checkout there is always standard logo. -->
+            <var name="mobile_logo_width"></var>
+            <var name="mobile_logo_height"></var>
+            <var name="mobile_back_button">false</var> <!-- Browsing history back button for mobile devices -->
+        </var>
+        <var name="breadcrumbs">
+            <var name="custom_separator">
+                <!-- You can decide if customized separator, for eg. SVG icon should be used. -->
+                <var name="display">false</var>
+                <var name="icon">images/icons/icon_arrow-right.svg</var>
+            </var>
+        </var>
+
+        <!-- Default project breakpoints -->
+        <var name="breakpoints">
+            <var name="phone">370</var>
+            <var name="phoneLg">480</var>
+            <var name="tablet">768</var>
+            <var name="laptop">1024</var>
+            <var name="laptopLg">1280</var>
+            <var name="desktop">1440</var>
+            <var name="tv">1920</var>
+        </var>
+
+        <!-- Defaines if IE11 modal should be displayed -->
+        <var name="ie11_modal">
+            <var name="enabled">true</var>
+        </var>
+
+        <!-- Consent Management -->
+        <var name="consent_management">
+            <var name="vendor"></var> <!-- Must be filled in, possible values: 'usercentrics' or 'amasty' -->
+            <!-- Consent name to be checked -->
+            <var name="services">
+                <var name="youtube">YouTube Video</var>
+                <var name="vimeo">Vimeo</var>
+                <var name="facebook">Facebook Videos</var>
+            </var>
+            <!-- Value used when there is no supported Content Management Platform connected (currently Usercentrics only) -->
+            <!-- true: consents accepted, false: consents declined -->
+            <var name="default_value">false</var>
+        </var>
+    </vars>
+
+    <vars module="Magento_Checkout">
+        <!-- Defines if minicart should be displayed as offcanvas -->
+        <var name="minicart_offcanvas">
+            <var name="enabled">true</var>
+            <var name="open_on_product_added">true</var>
+            <var name="products_carousel">
+                <var name="enabled">true</var>
+                <var name="relation_type">upsell</var>
+                <var name="button">true</var>
+                <var name="button_dynamic_url">false</var>
+                <var name="js">
+                    <var name="columnsConfig">
+                        <var name="phone">2</var>
+                        <var name="phoneLg">2</var>
+                        <var name="tablet">2</var>
+                        <var name="laptop">3</var>
+                        <var name="laptopLg">3</var>
+                        <var name="desktop">4</var>
+                        <var name="tv">4</var>
+                    </var>
+                </var>
+            </var>
+        </var>
+    </vars>
+
+    <vars module="Magento_Catalog">
+        <!-- configures toolbar elements (except of pagination, which is in Magento_Theme vars as it's global component) -->
+        <var name="toolbar">
+            <var name="filters_offcanvas_button">
+                <var name="display">false</var>
+                <var name="label">Filters</var>
+                <var name="icon">images/icons/toolbar/filters.svg</var>
+            </var>
+            <var name="amount">
+                <var name="display">false</var>
+            </var>
+            <var name="sorter">
+                <var name="display">true</var>
+                <!-- use 'filters' for display_area to move sorter to the filters and act one of them -->
+                <var name="display_area">toolbar</var>
+                <var name="label">Sort by:</var>
+                <var name="display_sort_direction_label">false</var>
+                <!-- Currently we use MageSuite_Sorting that changed logic of sorting dropdown and no icons are displayed at all. If you want them back you have to uninstall Sorting extention -->
+                <var name="icons">
+                    <var name="order_asc">images/icons/toolbar/asc-order-icon.svg</var>
+                    <var name="order_desc">images/icons/toolbar/desc-order-icon.svg</var>
+                </var>
+            </var>
+            <var name="limiter">
+                <var name="display">true</var>
+                <var name="prefix_label">Display:</var>
+                <var name="suffix_label"></var>
+                <var name="as_select">false</var>
+            </var>
+            <var name="viewmode_switcher">
+                <var name="display">true</var>
+                <var name="prefix_label"></var>
+                <var name="display_modes_icons">true</var>
+                <var name="display_modes_labels">false</var>
+            </var>
+        </var>
+
+        <!-- Options for letting users configure and add product to cart directly from product tile. -->
+        <var name="configurable_tile_swatches">
+            <var name="enabled">true</var>
+        </var>
+
+        <!-- Defines if Adding to cart should be done with AJAX where it can -->
+        <var name="ajax_addtocart">
+            <var name="enabled">true</var>
+            <var name="css_classes">
+                <var name="default_button">cs-addtocart__button</var>
+                <var name="default_label">cs-addtocart__button-label</var>
+                <var name="processing_label"></var>
+                <var name="success_overlay">cs-addtocart__feedback-bg</var>
+                <var name="success_label">cs-addtocart__success-label</var>
+                <var name="fail_label">cs-addtocart__fail-label</var>
+            </var>
+            <var name="labels">
+                <var name="default">Add to Cart</var>
+                <var name="processing"></var>
+                <var name="success">Thank you!</var>
+                <var name="fail">Something went wrong</var>
+            </var>
+            <var name="icons">
+                <var name="default">
+                    <var name="path">images/icons/addtocart/icon-addtocart.svg</var>
+                    <var name="css_class">cs-addtocart__button-icon</var>
+                    <var name="inlined">true</var>
+                </var>
+                <var name="configure">
+                    <var name="path">images/icons/addtocart/icon-configure.svg</var>
+                    <var name="css_class">cs-addtocart__configure-icon</var>
+                    <var name="inlined">true</var>
+                    <var name="lazy_loaded">true</var>
+                </var>
+                <var name="success">
+                    <var name="path">images/icons/addtocart/icon-success.svg</var>
+                    <var name="css_class">cs-addtocart__success-icon</var>
+                    <var name="inlined">true</var>
+                    <var name="lazy_loaded">true</var>
+                </var>
+                <var name="fail">
+                    <var name="path">images/icons/addtocart/icon-fail.svg</var>
+                    <var name="css_class">cs-addtocart__fail-icon</var>
+                    <var name="inlined">true</var>
+                    <var name="lazy_loaded">true</var>
+                </var>
+            </var>
+        </var>
+
+        <!-- Defines Icons for STOCK indicator (refers to PDP only). Had to be implemented here because ever type of product has its own definition pointing to the same template. Leave `path` empty to remove the icon completely. -->
+        <var name="stock_icons">
+            <var name="display">true</var>
+            <var name="in_stock">
+                <var name="icon_url">images/icons/stock/in-stock.svg</var>
+                <var name="css_class">cs-buybox__stock-icon cs-buybox__stock-icon--available</var>
+                <var name="inlined">true</var>
+            </var>
+            <var name="out_of_stock">
+                <var name="icon_url">images/icons/stock/out-of-stock.svg</var>
+                <var name="css_class">cs-buybox__stock-icon cs-buybox__stock-icon--unavailable</var>
+                <var name="inlined">true</var>
+            </var>
+        </var>
+
+        <!-- Gallery theme settings. Start. To check other options go to etc/view.xml in theme-blank -->
+        <var name="gallery">
+            <var name="maxheight">500px</var>            <!-- Maximum height of the preview block in pixels or percent. Probably the same as product_page_image_medium height-->
+            <var name="navarrows">false</var>            <!-- Turn on/off on the thumbs navigation sides arrows(true/false) -->
+            <var name="transition">
+                <var name="duration">250</var>                <!-- Sets transition duration in ms -->
+            </var>
+            <var name="fullscreen">
+                <var name="arrows">true</var>                <!-- Turn on/off arrows on the sides preview in fullscreen (true/false/null) -->
+                <var name="transition">
+                    <var name="duration">250</var>                    <!-- Sets transition duration in ms -->
+                </var>
+            </var>
+        </var>
+        <!-- end. Gallery theme settings -->
+
+        <!-- Filters settings -->
+        <var name="filters">
+            <var name="breakpoint_switch">tablet</var> <!-- This variable decides up from what breakpoint the appearance of filters is changed -->
+        </var>
+        <!-- To always keep sidebar (vertical) styles for filters change force_sidebar_filters_style argument in catalog.leftnav block to true -->
+        <!-- To display filters toggle button in toolbar set toolbar/filters_offcanvas_button to true -->
+        <!-- For offcanvas filters this value in most cases is_collapsible_mobile should be set to false -->
+        <var name="offcanvas_filters_enabled">
+            <var name="mobile">false</var>
+            <var name="desktop">false</var>
+        </var>
+    </vars>
+
+    <media>
+        <images module="Magento_Catalog">
+            <image id="category_page_grid" type="small_image">
+                <width>350</width>
+                <height>440</height>
+            </image>
+            <image id="category_page_grid_x2" type="small_image">
+                <width>700</width>
+                <height>880</height>
+            </image>
+            <image id="product_teaser" type="image">
+                <width>400</width>
+                <height>400</height>
+            </image>
+            <image id="product_teaser_2x" type="image">
+                <width>800</width>
+                <height>800</height>
+            </image>
+            <image id="related_products_list" type="small_image">
+                <width>350</width>
+                <height>440</height>
+            </image>
+            <image id="upsell_products_list" type="small_image">
+                <width>350</width>
+                <height>440</height>
+            </image>
+            <image id="product_page_more_views" type="thumbnail">
+                <width>75</width>
+                <height>75</height>
+            </image>
+            <image id="product_page_image_medium" type="image">
+                <width>500</width>
+                <height>500</height>
+            </image>
+            <image id="product_page_image_medium_no_frame" type="image">
+                <width>500</width>
+                <height>500</height>
+                <frame>false</frame>
+            </image>
+            <image id="product_page_image_small" type="thumbnail">
+                <width>78</width>
+                <height>78</height>
+            </image>
+            <image id="product_page_main_image" type="image">
+                <width>500</width>
+                <height>500</height>
+            </image>
+            <image id="product_page_main_image_default" type="image">
+                <width>500</width>
+                <height>500</height>
+            </image>
+            <image id="product_page_image_large" type="image">
+                <width>1000</width>
+                <height>1000</height>
+            </image>
+            <image id="product_page_image_large_no_frame" type="image">
+                <width>1000</width>
+                <height>1000</height>
+                <frame>false</frame>
+            </image>
+            <image id="product_page_more_views" type="thumbnail">
+                <width>90</width>
+                <height>90</height>
+            </image>
+            <image id="bundled_product_customization_page" type="thumbnail">
+                <width>50</width>
+                <height>50</height>
+            </image>
+            <image id="swatch_thumb" type="swatch_thumb">
+                <width>110</width>
+                <height>110</height>
+            </image>
+            <image id="shared_wishlist_email" type="thumbnail">
+                <width>170</width>
+                <height>170</height>
+            </image>
+            <image id="product_comparison_list" type="small_image">
+                <width>250</width>
+                <height>250</height>
+            </image>
+        </images>
+    </media>
+</view>
